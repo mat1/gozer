@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jboss.logging.Logger;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Json {
 
@@ -24,6 +25,15 @@ public class Json {
     public static <T> T parseJson(String json, Class<T> clazz) {
         try {
             return mapper.readValue(json, clazz);
+        } catch (IOException e) {
+            log.error(e);
+            return null;
+        }
+    }
+
+    public static <T> T readInputStream(InputStream inputStream, Class<T> clazz) {
+        try {
+            return mapper.readValue(inputStream, clazz);
         } catch (IOException e) {
             log.error(e);
             return null;

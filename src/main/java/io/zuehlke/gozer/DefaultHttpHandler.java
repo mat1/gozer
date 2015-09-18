@@ -24,6 +24,8 @@ public class DefaultHttpHandler implements HttpHandler {
             return;
         }
 
+        exchange.startBlocking();
+
         String requestURI = exchange.getRequestURI();
         HttpMethod httpMethod = HttpMethod.valueOf(exchange.getRequestMethod().toString());
 
