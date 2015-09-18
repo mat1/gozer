@@ -1,0 +1,43 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'idea'
+
+mainClassName = 'io.zuehlke.gozer.App'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile 'io.undertow:undertow-core:1.2.11.Final'
+    compile 'io.undertow:undertow-servlet:1.2.11.Final'
+    compile 'io.undertow:undertow-websockets-jsr:1.2.11.Final'
+    compile "com.fasterxml.jackson.core:jackson-databind:2.6.2"
+    compile 'mysql:mysql-connector-java:5.1.36'
+    compile 'org.jdbi:jdbi:2.63.1'
+    testCompile 'junit:junit:4.12'
+}
+
+shadowJar {
+  baseName = 'gozer'
+  classifier = ''
+}
+
+build.finalizedBy(shadowJar)
+
+jar {
+    baseName = 'gozer'
+    version =  '0.0.1'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
